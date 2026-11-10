@@ -1,0 +1,9 @@
+# ai.txt - AI Training & Automated Scraping Opt-Out Notice
+# 本專案「好個鳥日子 Bird Days」之文字、圖片、商品資料與程式碼皆保留完整著作權。
+# 禁止任何 AI 模型訓練、自動化資料探勘 (Text and Data Mining) 與未經授權之爬取行為。
+
+User-Agent: *
+Disallow: /
+Disallow-AI-Training: /
+Disallow-Data-Mining: /
+

@@ -1,0 +1,315 @@
+@import "tailwindcss";
+
+/**
+ * ============================================================================
+ * 好個鳥日子（Bird Days）— 主題色彩 Key 設定中心
+ * ============================================================================
+ * 說明：
+ * 1. 本專案不使用 Tailwind 預設色票（例如 yellow-500、gray-100 等）。
+ * 2. 所有網站顏色皆透過以下 CSS 變數（Key）統一管理。
+ * 3. 若要更換最終品牌配色，只需直接修改 :root 內對應 Key 的色碼即可全域生效。
+ * ============================================================================
+ */
+:root {
+  /* --- 品牌主色調（暖黃色系） --- */
+  --key-brand-primary: #F5B731;        /* 主視覺暖黃：主要按鈕、Logo、重點強調 */
+  --key-brand-primary-hover: #E09F1F;  /* 主視覺 Hover 狀態 */
+  --key-brand-secondary: #FDE68A;      /* 次要奶油黃：標籤、柔和強調區塊 */
+  --key-brand-soft: #FEF3C7;           /* 極淺暖黃：提示框、選中項目背景 */
+  --key-brand-accent: #C26D27;         /* 焦糖暖橘：價格、促銷標籤、次強調 */
+  --key-brand-accent-hover: #A6581A;   /* 焦糖暖橘 Hover 狀態 */
+
+  /* --- 背景與表面色 --- */
+  --key-bg-base: #FFFDF5;              /* 全站最底層暖米白 */
+  --key-bg-surface: #FFF8E1;           /* 區塊、側邊欄、淡蛋黃表面 */
+  --key-bg-card: #FFFFFF;              /* 卡片與表單輸入框底色 */
+  --key-bg-muted: #F7EED4;             /* 次要灰暖底色（表格表頭、分隔區） */
+  --key-bg-dark: #3E2F1C;              /* 深焙咖底色（Footer 或深色強調區） */
+
+  /* --- 文字色 --- */
+  --key-text-primary: #3E2F1C;         /* 主要標題與內文（柔和深焙咖） */
+  --key-text-secondary: #6B573C;       /* 次要內文 */
+  --key-text-muted: #8E7A5D;           /* 說明文字、Placeholder、輔助資訊 */
+  --key-text-on-primary: #3E2F1C;      /* 放在主色暖黃按鈕上的文字色 */
+  --key-text-on-accent: #FFFDF5;       /* 放在深色/焦糖橘按鈕上的文字色 */
+
+  /* --- 邊框與陰影 --- */
+  --key-border-soft: #F0DFB8;          /* 卡片與區塊柔順邊框 */
+  --key-border-strong: #DFC48C;        /* 輸入框 Focus 或強調邊框 */
+
+  /* --- 狀態提示色（符合暖色系調性） --- */
+  --key-status-success: #4D7C43;
+  --key-status-success-bg: #EAF3E6;
+  --key-status-warning: #B9770E;
+  --key-status-warning-bg: #FDF2D6;
+  --key-status-danger: #B84A39;
+  --key-status-danger-bg: #FCECE9;
+}
+
+/**
+ * 將自訂色彩 Key 註冊到 Tailwind v4 主題，
+ * 讓所有元件都能使用如 bg-brand-primary、text-text-primary、border-border-soft 等語意化 class。
+ * 同時重置預設色票命名空間，確保不會誤用 Tailwind 內建色票。
+ */
+@theme inline {
+  --color-brand-primary: var(--key-brand-primary);
+  --color-brand-primary-hover: var(--key-brand-primary-hover);
+  --color-brand-secondary: var(--key-brand-secondary);
+  --color-brand-soft: var(--key-brand-soft);
+  --color-brand-accent: var(--key-brand-accent);
+  --color-brand-accent-hover: var(--key-brand-accent-hover);
+
+  --color-bg-base: var(--key-bg-base);
+  --color-bg-surface: var(--key-bg-surface);
+  --color-bg-card: var(--key-bg-card);
+  --color-bg-muted: var(--key-bg-muted);
+  --color-bg-dark: var(--key-bg-dark);
+
+  --color-text-primary: var(--key-text-primary);
+  --color-text-secondary: var(--key-text-secondary);
+  --color-text-muted: var(--key-text-muted);
+  --color-text-on-primary: var(--key-text-on-primary);
+  --color-text-on-accent: var(--key-text-on-accent);
+
+  --color-border-soft: var(--key-border-soft);
+  --color-border-strong: var(--key-border-strong);
+
+  --color-status-success: var(--key-status-success);
+  --color-status-success-bg: var(--key-status-success-bg);
+  --color-status-warning: var(--key-status-warning);
+  --color-status-warning-bg: var(--key-status-warning-bg);
+  --color-status-danger: var(--key-status-danger);
+  --color-status-danger-bg: var(--key-status-danger-bg);
+}
+
+/* --- 基礎排版與預設背景 --- */
+@layer base {
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--key-bg-base);
+    color: var(--key-text-primary);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+/* --- 客製化共用 UI Class（遵循品牌暖黃色調 Key） --- */
+@layer components {
+  .btn-brand-primary {
+    background-color: var(--key-brand-primary);
+    color: var(--key-text-on-primary);
+    font-weight: 600;
+    border-radius: 0.75rem;
+    transition: background-color 0.2s ease, transform 0.15s ease;
+  }
+  .btn-brand-primary:hover:not(:disabled) {
+    background-color: var(--key-brand-primary-hover);
+  }
+  .btn-brand-primary:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  .btn-brand-primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-brand-accent {
+    background-color: var(--key-brand-accent);
+    color: var(--key-text-on-accent);
+    font-weight: 600;
+    border-radius: 0.75rem;
+    transition: background-color 0.2s ease;
+  }
+  .btn-brand-accent:hover:not(:disabled) {
+    background-color: var(--key-brand-accent-hover);
+  }
+
+  .btn-brand-outline {
+    background-color: var(--key-bg-card);
+    color: var(--key-text-primary);
+    border: 1px solid var(--key-border-strong);
+    font-weight: 500;
+    border-radius: 0.75rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .btn-brand-outline:hover:not(:disabled) {
+    background-color: var(--key-brand-soft);
+    border-color: var(--key-brand-primary);
+  }
+
+  .card-warm {
+    background-color: var(--key-bg-card);
+    border: 1px solid var(--key-border-soft);
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px -4px color-mix(in srgb, var(--key-text-primary) 6%, transparent);
+  }
+
+  .surface-warm {
+    background-color: var(--key-bg-surface);
+    border: 1px solid var(--key-border-soft);
+    border-radius: 1rem;
+  }
+
+  .input-warm {
+    background-color: var(--key-bg-card);
+    color: var(--key-text-primary);
+    border: 1px solid var(--key-border-soft);
+    border-radius: 0.625rem;
+    padding: 0.5rem 0.75rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .input-warm::placeholder {
+    color: var(--key-text-muted);
+  }
+  .input-warm:focus {
+    border-color: var(--key-brand-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--key-brand-primary) 22%, transparent);
+  }
+
+  .badge-warm {
+    background-color: var(--key-brand-secondary);
+    color: var(--key-text-primary);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+  }
+}
+
+/* --- 富文本內容顯示與編輯器專屬排版樣式 --- */
+.rich-text-content h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0.5rem;
+  color: var(--key-text-primary);
+}
+.rich-text-content h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0.4rem;
+  color: var(--key-text-primary);
+}
+.rich-text-content h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0.6rem 0 0.35rem;
+  color: var(--key-text-primary);
+}
+.rich-text-content p {
+  margin: 0.45rem 0;
+  line-height: 1.75;
+}
+.rich-text-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+.rich-text-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+}
+.rich-text-content blockquote {
+  border-left: 4px solid var(--key-brand-primary);
+  background-color: var(--key-bg-surface);
+  padding: 0.5rem 1rem;
+  margin: 0.75rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: var(--key-text-secondary);
+}
+.rich-text-content a {
+  color: var(--key-brand-accent);
+  text-decoration: underline;
+}
+.rich-text-content img {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  margin: 0.75rem 0;
+}
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* --- 購物車加入動畫（GPU 平滑曲線，無轉折頓點） --- */
+@keyframes cart-bump {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  40% {
+    transform: scale3d(1.09, 1.09, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes cart-fly-x {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--fly-x), 0, 0);
+  }
+}
+
+@keyframes cart-fly-y {
+  0% {
+    opacity: 0.95;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0.25;
+    transform: translate3d(0, var(--fly-y), 0) scale(0.45);
+  }
+}
+
+@keyframes cart-added-pop {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0) scale(0.92);
+  }
+  18% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  82% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0) scale(0.96);
+  }
+}
+
+.animate-cart-bump {
+  animation: cart-bump 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.animate-cart-fly-x {
+  animation: cart-fly-x 0.44s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  will-change: transform;
+}
+
+.animate-cart-fly-y {
+  animation: cart-fly-y 0.44s cubic-bezier(0.32, -0.22, 0.72, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.animate-cart-added-pop {
+  animation: cart-added-pop 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+
